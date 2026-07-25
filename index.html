@@ -3,17 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lexithra — drag letters, build words, clear the board. A fresh word puzzle game for Android.">
   <title>Lexithra — Word Puzzle Game</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: #0a0a0f;
       color: #e4e4e8;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: #f0a020;
+      color: #0a0a0f;
+      font-size: 17px; font-weight: 700;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(240,160,32,0.25);
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #f5b840; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(240,160,32,0.35); }
+    .btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      color: #8888a0;
+      font-size: 14px; font-weight: 500;
+      border: 1px solid #2a2a3a;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: #f0a020; color: #f0a020; }
 
     /* Hero */
     .hero {
@@ -23,18 +56,15 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       background: radial-gradient(ellipse at 50% 40%, rgba(240,160,32,0.08) 0%, transparent 70%),
                   linear-gradient(180deg, #0d0d18 0%, #0a0a0f 100%);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      top: 20%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
+      content: ''; position: absolute;
+      top: 20%; left: 50%; transform: translate(-50%, -50%);
+      width: min(600px, 80vw); height: min(600px, 80vw);
       background: radial-gradient(circle, rgba(240,160,32,0.04) 0%, transparent 70%);
       border-radius: 50%;
     }
@@ -45,40 +75,34 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 36px; font-weight: 900;
       color: #0a0a0f;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       box-shadow: 0 8px 32px rgba(240,160,32,0.2);
+      position: relative; z-index: 1;
     }
     .hero h1 {
-      font-size: clamp(48px, 8vw, 88px);
+      font-size: clamp(44px, 8vw, 88px);
       font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1;
+      position: relative; z-index: 1;
     }
     .hero h1 .gold { color: #f0a020; }
     .hero h1 .white { color: #f0f0f5; }
     .hero .subtitle {
-      font-size: clamp(16px, 2.5vw, 22px);
+      font-size: clamp(15px, 2.5vw, 22px);
       color: #8888a0;
       margin-top: 16px;
       max-width: 480px;
+      position: relative; z-index: 1;
     }
-    .hero .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      margin-top: 40px;
-      padding: 16px 36px;
-      background: #f0a020;
-      color: #0a0a0f;
-      font-size: 18px; font-weight: 700;
-      border-radius: 14px;
-      text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 4px 24px rgba(240,160,32,0.25);
+    .hero .btn-wrap {
+      display: flex; gap: 14px; margin-top: 40px;
+      position: relative; z-index: 1;
+      flex-wrap: wrap; justify-content: center;
     }
-    .hero .btn:hover { background: #f5b840; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(240,160,32,0.35); }
-    .hero .btn svg { width: 24px; height: 24px; }
 
     .scroll-hint {
-      position: absolute; bottom: 40px;
+      position: absolute; bottom: 36px;
       animation: bounce 2s infinite;
       opacity: 0.4;
     }
@@ -88,31 +112,31 @@
     }
 
     /* Sections */
-    section { padding: 80px 20px; max-width: 960px; margin: 0 auto; }
+    section { padding: clamp(50px, 8vw, 80px) 20px; max-width: 960px; margin: 0 auto; }
     section h2 {
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(26px, 4vw, 40px);
       font-weight: 800;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     section .section-subtitle {
       text-align: center;
       color: #666680;
-      font-size: 16px;
-      margin-bottom: 56px;
+      font-size: clamp(14px, 2vw, 16px);
+      margin-bottom: clamp(32px, 5vw, 56px);
     }
 
     /* How to Play */
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: 20px;
     }
     .step-card {
       background: #14141f;
       border: 1px solid #1e1e2e;
       border-radius: 16px;
-      padding: 32px 24px;
+      padding: clamp(24px, 4vw, 32px) clamp(18px, 3vw, 24px);
       text-align: center;
       transition: all 0.2s;
     }
@@ -122,62 +146,37 @@
       background: linear-gradient(135deg, #f0a020, #d07810);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 18px;
       font-size: 20px; font-weight: 800;
       color: #0a0a0f;
     }
-    .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .step-card p { color: #808098; font-size: 14px; line-height: 1.5; }
+    .step-card h3 { font-size: clamp(16px, 2vw, 18px); font-weight: 700; margin-bottom: 8px; }
+    .step-card p { color: #808098; font-size: clamp(13px, 1.5vw, 14px); line-height: 1.5; }
 
     /* Features */
     #features { background: #0d0d18; }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: 16px;
     }
     .feature-card {
       background: #14141f;
       border: 1px solid #1e1e2e;
       border-radius: 14px;
-      padding: 28px 20px;
+      padding: clamp(20px, 3vw, 28px) clamp(14px, 2vw, 20px);
       text-align: center;
       transition: all 0.2s;
     }
     .feature-card:hover { border-color: #282840; }
-    .feature-icon {
-      font-size: 36px;
-      margin-bottom: 14px;
-    }
-    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .feature-card p { color: #808098; font-size: 13px; }
-
-    /* Screenshots */
-    .screenshots {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-    .shot {
-      background: #14141f;
-      border: 1px solid #1e1e2e;
-      border-radius: 16px;
-      aspect-ratio: 9/16;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #444460;
-      font-size: 14px;
-      max-width: 240px;
-      margin: 0 auto;
-      transition: all 0.2s;
-    }
-    .shot:hover { border-color: #f0a02044; }
+    .feature-icon { font-size: clamp(28px, 4vw, 36px); margin-bottom: 12px; }
+    .feature-card h3 { font-size: clamp(14px, 1.8vw, 16px); font-weight: 700; margin-bottom: 6px; }
+    .feature-card p { color: #808098; font-size: clamp(12px, 1.4vw, 13px); }
 
     /* Footer */
     footer {
       text-align: center;
-      padding: 60px 20px;
+      padding: clamp(40px, 6vw, 60px) 20px;
       background: #080810;
       border-top: 1px solid #1e1e2e;
     }
@@ -187,11 +186,24 @@
       font-weight: 500;
     }
     footer a:hover { text-decoration: underline; }
-    footer .links { margin-bottom: 20px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    footer .links { margin-bottom: 20px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-size: clamp(14px, 1.8vw, 16px); }
     footer .copy { color: #555570; font-size: 13px; }
 
-    @media (max-width: 600px) {
-      section { padding: 60px 16px; }
+    /* Mobile tweaks */
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px; min-height: 90vh; }
+      .hero h1 { font-size: 38px; }
+      .logo-icon { width: 64px; height: 64px; font-size: 28px; border-radius: 16px; }
+      .hero .btn-wrap { flex-direction: column; align-items: center; gap: 10px; }
+      .hero .btn { padding: 14px 24px; font-size: 15px; width: 100%; max-width: 300px; justify-content: center; }
+      .btn-outline { width: 100%; max-width: 300px; justify-content: center; }
+      .steps { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .features-grid .feature-card { padding: 18px 12px; }
+      section { padding: 50px 14px; }
+    }
+    @media (min-width: 481px) and (max-width: 768px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -201,10 +213,12 @@
     <div class="logo-icon">L</div>
     <h1><span class="gold">LEXI</span><span class="white">THRA</span></h1>
     <p class="subtitle">Drag letters. Build words. Clear the board. A fresh take on word puzzles for your phone.</p>
-    <a href="#" class="btn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
-      Get on Google Play
-    </a>
+    <div class="btn-wrap">
+      <a href="https://play.google.com/store/apps/details?id=com.shkir.lexithra" class="btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
+        Get on Google Play
+      </a>
+    </div>
     <div class="scroll-hint">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555570" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </div>
@@ -233,13 +247,13 @@
   </section>
 
   <section id="features">
-    <h2 style="color:#f0f0f5;">Features</h2>
+    <h2>Features</h2>
     <p class="section-subtitle">Everything you need for endless word fun</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🎯</div>
         <h3>Daily Missions</h3>
-        <p>3 new challenges every day + a bonus quest</p>
+        <p>3 new challenges every day + bonus quest</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💣</div>
@@ -259,32 +273,32 @@
       <div class="feature-card">
         <div class="feature-icon">🏆</div>
         <h3>Achievements</h3>
-        <p>9 permanent milestones with gem rewards</p>
+        <p>9 milestones with gem rewards</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🔥</div>
         <h3>Streaks</h3>
-        <p>Daily &amp; weekly login streaks with bonus loot</p>
+        <p>Daily &amp; weekly login rewards</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">⭐</div>
         <h3>Joker Star</h3>
-        <p>Wildcard tile that picks the best letter for maximum score</p>
+        <p>Wildcard that picks the best letter for max score</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📱</div>
         <h3>Offline Play</h3>
-        <p>No internet needed. Your progress stays on your device.</p>
+        <p>No internet needed. Progress stays on device.</p>
       </div>
     </div>
   </section>
 
   <section id="download">
     <h2>Ready to Play?</h2>
-    <p class="section-subtitle">Lexithra is free. No account required. Just download and start building words.</p>
+    <p class="section-subtitle">Free download. No account required. Just install and start building words.</p>
     <div style="text-align:center;">
-      <a href="#" class="btn" style="display:inline-flex;">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
+      <a href="https://play.google.com/store/apps/details?id=com.shkir.lexithra" class="btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
         Get on Google Play
       </a>
     </div>
@@ -293,6 +307,7 @@
   <footer>
     <div class="links">
       <a href="privacy.html">Privacy Policy</a>
+      <a href="app-ads.txt">app-ads.txt</a>
       <a href="mailto:vvddnn0109@gmail.com">Contact</a>
     </div>
     <p style="color:#666680;font-size:14px;margin-bottom:4px;">Developer: Vasil Shelelo</p>
