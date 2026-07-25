@@ -35,28 +35,24 @@
     .btn:hover { background: #f5b840; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(240,160,32,0.35); }
     .btn svg { width: 22px; height: 22px; flex-shrink: 0; }
 
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px;
-      background: transparent;
-      color: #8888a0;
-      font-size: 14px; font-weight: 500;
-      border: 1px solid #2a2a3a;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: all 0.2s;
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-wrap { padding: clamp(50px, 8vw, 80px) 20px; }
+    .section-wrap h2 {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800; text-align: center; margin-bottom: 12px;
     }
-    .btn-outline:hover { border-color: #f0a020; color: #f0a020; }
+    .section-wrap .section-subtitle {
+      text-align: center; color: #666680;
+      font-size: clamp(14px, 2vw, 16px);
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
 
     /* Hero */
     .hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 20px;
       background: radial-gradient(ellipse at 50% 40%, rgba(240,160,32,0.08) 0%, transparent 70%),
                   linear-gradient(180deg, #0d0d18 0%, #0a0a0f 100%);
       position: relative; overflow: hidden;
@@ -73,26 +69,21 @@
       background: linear-gradient(135deg, #f0a020, #e08810);
       border-radius: 20px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: 900;
-      color: #0a0a0f;
+      font-size: 36px; font-weight: 900; color: #0a0a0f;
       margin-bottom: 28px;
       box-shadow: 0 8px 32px rgba(240,160,32,0.2);
       position: relative; z-index: 1;
     }
     .hero h1 {
       font-size: clamp(44px, 8vw, 88px);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      font-weight: 900; letter-spacing: -0.03em; line-height: 1;
       position: relative; z-index: 1;
     }
     .hero h1 .gold { color: #f0a020; }
     .hero h1 .white { color: #f0f0f5; }
     .hero .subtitle {
-      font-size: clamp(15px, 2.5vw, 22px);
-      color: #8888a0;
-      margin-top: 16px;
-      max-width: 480px;
+      font-size: clamp(15px, 2.5vw, 22px); color: #8888a0;
+      margin-top: 16px; max-width: 480px;
       position: relative; z-index: 1;
     }
     .hero .btn-wrap {
@@ -100,45 +91,27 @@
       position: relative; z-index: 1;
       flex-wrap: wrap; justify-content: center;
     }
-
     .scroll-hint {
       position: absolute; bottom: 36px;
-      animation: bounce 2s infinite;
-      opacity: 0.4;
+      animation: bounce 2s infinite; opacity: 0.4;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(8px); }
     }
 
-    /* Sections */
-    section { padding: clamp(50px, 8vw, 80px) 20px; max-width: 960px; margin: 0 auto; }
-    section h2 {
-      font-size: clamp(26px, 4vw, 40px);
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    section .section-subtitle {
-      text-align: center;
-      color: #666680;
-      font-size: clamp(14px, 2vw, 16px);
-      margin-bottom: clamp(32px, 5vw, 56px);
-    }
-
     /* How to Play */
+    #how { background: #0a0a0f; }
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
       gap: 20px;
     }
     .step-card {
-      background: #14141f;
-      border: 1px solid #1e1e2e;
+      background: #14141f; border: 1px solid #1e1e2e;
       border-radius: 16px;
       padding: clamp(24px, 4vw, 32px) clamp(18px, 3vw, 24px);
-      text-align: center;
-      transition: all 0.2s;
+      text-align: center; transition: all 0.2s;
     }
     .step-card:hover { border-color: #f0a02033; transform: translateY(-4px); }
     .step-num {
@@ -146,9 +119,7 @@
       background: linear-gradient(135deg, #f0a020, #d07810);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 18px;
-      font-size: 20px; font-weight: 800;
-      color: #0a0a0f;
+      margin: 0 auto 18px; font-size: 20px; font-weight: 800; color: #0a0a0f;
     }
     .step-card h3 { font-size: clamp(16px, 2vw, 18px); font-weight: 700; margin-bottom: 8px; }
     .step-card p { color: #808098; font-size: clamp(13px, 1.5vw, 14px); line-height: 1.5; }
@@ -161,17 +132,18 @@
       gap: 16px;
     }
     .feature-card {
-      background: #14141f;
-      border: 1px solid #1e1e2e;
+      background: #14141f; border: 1px solid #1e1e2e;
       border-radius: 14px;
       padding: clamp(20px, 3vw, 28px) clamp(14px, 2vw, 20px);
-      text-align: center;
-      transition: all 0.2s;
+      text-align: center; transition: all 0.2s;
     }
     .feature-card:hover { border-color: #282840; }
     .feature-icon { font-size: clamp(28px, 4vw, 36px); margin-bottom: 12px; }
     .feature-card h3 { font-size: clamp(14px, 1.8vw, 16px); font-weight: 700; margin-bottom: 6px; }
     .feature-card p { color: #808098; font-size: clamp(12px, 1.4vw, 13px); }
+
+    /* Download */
+    #download { background: #0a0a0f; }
 
     /* Footer */
     footer {
@@ -180,27 +152,21 @@
       background: #080810;
       border-top: 1px solid #1e1e2e;
     }
-    footer a {
-      color: #f0a020;
-      text-decoration: none;
-      font-weight: 500;
-    }
+    footer a { color: #f0a020; text-decoration: none; font-weight: 500; }
     footer a:hover { text-decoration: underline; }
     footer .links { margin-bottom: 20px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-size: clamp(14px, 1.8vw, 16px); }
     footer .copy { color: #555570; font-size: 13px; }
 
-    /* Mobile tweaks */
     @media (max-width: 480px) {
       .hero { padding: 40px 16px; min-height: 90vh; }
       .hero h1 { font-size: 38px; }
       .logo-icon { width: 64px; height: 64px; font-size: 28px; border-radius: 16px; }
       .hero .btn-wrap { flex-direction: column; align-items: center; gap: 10px; }
       .hero .btn { padding: 14px 24px; font-size: 15px; width: 100%; max-width: 300px; justify-content: center; }
-      .btn-outline { width: 100%; max-width: 300px; justify-content: center; }
       .steps { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .features-grid .feature-card { padding: 18px 12px; }
-      section { padding: 50px 14px; }
+      .section-wrap { padding: 50px 14px; }
     }
     @media (min-width: 481px) and (max-width: 768px) {
       .features-grid { grid-template-columns: repeat(2, 1fr); }
@@ -224,85 +190,91 @@
     </div>
   </section>
 
-  <section id="how">
-    <h2>How to Play</h2>
-    <p class="section-subtitle">Three steps to word puzzle mastery</p>
-    <div class="steps">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <h3>Drag Letters</h3>
-        <p>Pick a letter from your tray and drag it onto the 8x8 board. Smart previews show you where valid words can be formed.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <h3>Build Words</h3>
-        <p>Form words horizontally or vertically using at least 3 letters. Longer words earn more points!</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <h3>Clear &amp; Combo</h3>
-        <p>Cleared words explode off the board. Chain multiple words in one move for massive combo multipliers.</p>
+  <div id="how" class="section-wrap">
+    <div class="container">
+      <h2>How to Play</h2>
+      <p class="section-subtitle">Three steps to word puzzle mastery</p>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Drag Letters</h3>
+          <p>Pick a letter from your tray and drag it onto the 8x8 board. Smart previews show you where valid words can be formed.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Build Words</h3>
+          <p>Form words horizontally or vertically using at least 3 letters. Longer words earn more points!</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Clear &amp; Combo</h3>
+          <p>Cleared words explode off the board. Chain multiple words in one move for massive combo multipliers.</p>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="features">
-    <h2>Features</h2>
-    <p class="section-subtitle">Everything you need for endless word fun</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Daily Missions</h3>
-        <p>3 new challenges every day + bonus quest</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💣</div>
-        <h3>Power-ups</h3>
-        <p>Bomb cross-clears, Joker smart-fills, Swap refreshes</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌍</div>
-        <h3>7 Languages</h3>
-        <p>EN, UK, ES, DE, FR, PL, RU with full dictionaries</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎨</div>
-        <h3>5 Themes</h3>
-        <p>Light, Dark, Pastel, Ocean, Sunset color palettes</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏆</div>
-        <h3>Achievements</h3>
-        <p>9 milestones with gem rewards</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔥</div>
-        <h3>Streaks</h3>
-        <p>Daily &amp; weekly login rewards</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⭐</div>
-        <h3>Joker Star</h3>
-        <p>Wildcard that picks the best letter for max score</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📱</div>
-        <h3>Offline Play</h3>
-        <p>No internet needed. Progress stays on device.</p>
+  <div id="features" class="section-wrap">
+    <div class="container">
+      <h2>Features</h2>
+      <p class="section-subtitle">Everything you need for endless word fun</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Daily Missions</h3>
+          <p>3 new challenges every day + bonus quest</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💣</div>
+          <h3>Power-ups</h3>
+          <p>Bomb cross-clears, Joker smart-fills, Swap refreshes</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>7 Languages</h3>
+          <p>EN, UK, ES, DE, FR, PL, RU with full dictionaries</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>5 Themes</h3>
+          <p>Light, Dark, Pastel, Ocean, Sunset color palettes</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>Achievements</h3>
+          <p>9 milestones with gem rewards</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔥</div>
+          <h3>Streaks</h3>
+          <p>Daily &amp; weekly login rewards</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Joker Star</h3>
+          <p>Wildcard that picks the best letter for max score</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Offline Play</h3>
+          <p>No internet needed. Progress stays on device.</p>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="download">
-    <h2>Ready to Play?</h2>
-    <p class="section-subtitle">Free download. No account required. Just install and start building words.</p>
-    <div style="text-align:center;">
-      <a href="https://play.google.com/store/apps/details?id=com.shkir.lexithra" class="btn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
-        Get on Google Play
-      </a>
+  <div id="download" class="section-wrap">
+    <div class="container">
+      <h2>Ready to Play?</h2>
+      <p class="section-subtitle">Free download. No account required. Just install and start building words.</p>
+      <div style="text-align:center;">
+        <a href="https://play.google.com/store/apps/details?id=com.shkir.lexithra" class="btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM6.864 2.658L16.8 8.41l-2.302 2.302-7.634-8.054z"/></svg>
+          Get on Google Play
+        </a>
+      </div>
     </div>
-  </section>
+  </div>
 
   <footer>
     <div class="links">
